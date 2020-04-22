@@ -1,16 +1,16 @@
-package node
+package doublylinkedlist
 
 type Node struct {
-	key interface{}
-	val interface{}
+	key  interface{}
+	val  interface{}
 	next *Node
 	prev *Node
 }
 
 func MakeNode(key, val interface{}, next, prev *Node) *Node {
-	return &Node {
-		key: key,
-		val: val,
+	return &Node{
+		key:  key,
+		val:  val,
 		next: next,
 		prev: prev,
 	}
@@ -33,14 +33,14 @@ func (n *Node) SetKey(key interface{}) {
 }
 
 func (n *Node) RemoveNode() {
-	if (n.next != nil) {
+	if n.next != nil {
 		n.next.prev = n.prev
-	} 
-	
-	if (n.prev != nil) {
+	}
+
+	if n.prev != nil {
 		n.prev.next = n.next
 	}
-	
+
 	n.next = nil
 	n.prev = nil
 }
@@ -50,15 +50,15 @@ func (n *Node) GetNext() *Node {
 }
 
 func (n *Node) SetNext(newNode *Node) {
-	if (n.next != nil) {
+	if n.next != nil {
 		n.next.prev = newNode
 	}
 
-	if (newNode != nil) {
+	if newNode != nil {
 		newNode.next = n.next
 		newNode.prev = n
 	}
-	
+
 	n.next = newNode
 }
 
@@ -72,15 +72,15 @@ func (n *Node) GetPrev() *Node {
 }
 
 func (n *Node) SetPrev(newNode *Node) {
-	if (n.prev != nil) {
+	if n.prev != nil {
 		n.prev.next = newNode
 	}
 
-	if (newNode != nil) {
+	if newNode != nil {
 		newNode.next = n
 		newNode.prev = n.prev
 	}
-	
+
 	n.prev = newNode
 }
 

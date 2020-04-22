@@ -1,24 +1,23 @@
 package lrucache
 
 import (
-	"golrucache/node"
 	"golrucache/doublylinkedlist"
 	"sync"
 )
 
 type LRUCache struct {
-	cache map[interface{}]*node.Node
-	list *doublylinkedlist.DoublyLinkedList
-	cap int
+	cache map[interface{}]*doublylinkedlist.Node
+	list  *doublylinkedlist.DoublyLinkedList
+	cap   int
 	sync.Mutex
 }
 
-func MakeLRUCache(cap int) *LRUCache{
+func MakeLRUCache(cap int) *LRUCache {
 	//if cap is <= 0 then throw error
-	return &LRUCache {
-		cache: make(map[interface{}]*node.Node, cap),
-		list: doublylinkedlist.MakeDoublyLinkedList(),
-		cap: cap,
+	return &LRUCache{
+		cache: make(map[interface{}]*doublylinkedlist.Node, cap),
+		list:  doublylinkedlist.MakeDoublyLinkedList(),
+		cap:   cap,
 	}
 }
 
@@ -38,20 +37,20 @@ func (l *LRUCache) GetCap() int {
 func (l *LRUCache) Get(key interface{}) interface{} {
 	l.Lock()
 	defer l.Unlock()
-	
+
 	node, found := l.cache[key]
 
-	if (found) {
+	if found {
 		l.list.RemoveNode(node)
 		l.list.InsertFront(node)
 		return node.GetVal()
 	} else {
 		return nil
-	}	
+	}
 }
 
 func (l *LRUCache) Set(key, val interface{}) bool {
-	if (key == nil || val == nil) {
+	if key == nil || val == nil {
 		return false
 	}
 	l.Lock()
@@ -59,13 +58,13 @@ func (l *LRUCache) Set(key, val interface{}) bool {
 
 	oldNode, found := l.cache[key]
 
-	if (found) {
+	if found {
 		l.list.RemoveNode(oldNode)
 		l.list.InsertFront(oldNode)
 		oldNode.SetVal(val)
 	} else {
-		newNode := node.MakeNode(key, val, nil, nil)
-		if (l.list.GetSize() >= l.GetCap()) { // cache is full, need to use list.GetSize since local GetSize locks
+		newNode := doublylinkedlist.MakeNode(key, val, nil, nil)
+		if l.list.GetSize() >= l.GetCap() { // cache is full, need to use list.GetSize since local GetSize locks
 			nodeToRemove := l.list.GetTail()
 			delete(l.cache, nodeToRemove.GetKey())
 			l.list.RemoveBack() // this will update the list's size

@@ -1,15 +1,13 @@
 package doublylinkedlist
 
-import "golrucache/node"
-
 type DoublyLinkedList struct {
-	head *node.Node
-	tail *node.Node
+	head *Node
+	tail *Node
 	size int
 }
 
 func MakeDoublyLinkedList() *DoublyLinkedList {
-	return &DoublyLinkedList {
+	return &DoublyLinkedList{
 		head: nil,
 		tail: nil,
 		size: 0,
@@ -17,8 +15,8 @@ func MakeDoublyLinkedList() *DoublyLinkedList {
 }
 
 func MakeDoublyLinkedListVal(key, val interface{}) *DoublyLinkedList {
-	newNode := node.MakeNode(key, val, nil, nil)
-	return &DoublyLinkedList {
+	newNode := MakeNode(key, val, nil, nil)
+	return &DoublyLinkedList{
 		head: newNode,
 		tail: newNode,
 		size: 1,
@@ -29,18 +27,18 @@ func (d *DoublyLinkedList) GetSize() int {
 	return d.size
 }
 
-func (d *DoublyLinkedList) GetHead() *node.Node {
+func (d *DoublyLinkedList) GetHead() *Node {
 	return d.head
 }
 
-func (d *DoublyLinkedList) RemoveNode(n *node.Node) { // must assume that this node is in the linked list
-	if (n == nil) {
+func (d *DoublyLinkedList) RemoveNode(n *Node) { // must assume that this node is in the linked list
+	if n == nil {
 		return
 	}
 
-	if (n == d.head) {
+	if n == d.head {
 		d.RemoveFront()
-	} else if (n == d.tail) {
+	} else if n == d.tail {
 		d.RemoveBack()
 	} else {
 		d.size--
@@ -49,11 +47,11 @@ func (d *DoublyLinkedList) RemoveNode(n *node.Node) { // must assume that this n
 }
 
 func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) {
-	if (d.head != nil) {
+	if d.head != nil {
 		d.head.SetPrevVal(key, val)
 		d.head = d.head.GetPrev()
 	} else {
-		newNode := node.MakeNode(key, val, nil, nil)
+		newNode := MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}
@@ -61,8 +59,8 @@ func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) {
 	d.size += 1
 }
 
-func (d *DoublyLinkedList) InsertFront(node *node.Node) {
-	if (d.head != nil) {
+func (d *DoublyLinkedList) InsertFront(node *Node) {
+	if d.head != nil {
 		d.head.SetPrev(node)
 	} else {
 		d.tail = node
@@ -72,37 +70,37 @@ func (d *DoublyLinkedList) InsertFront(node *node.Node) {
 	d.size += 1
 }
 
-func (d *DoublyLinkedList) GetTail() *node.Node {
+func (d *DoublyLinkedList) GetTail() *Node {
 	return d.tail
 }
 
 func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) {
-	if (d.tail != nil) {
+	if d.tail != nil {
 		d.tail.SetNextVal(key, val)
 		d.tail = d.tail.GetNext()
 	} else {
-		newNode := node.MakeNode(key, val, nil, nil)
+		newNode := MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}
 	d.size += 1
 }
 
-func (d *DoublyLinkedList) InsertBack(node *node.Node) {
-	if (d.tail != nil) {
+func (d *DoublyLinkedList) InsertBack(node *Node) {
+	if d.tail != nil {
 		d.tail.SetNext(node)
 	} else {
 		d.head = node
 	}
-	
+
 	d.tail = node
 	d.size += 1
 }
 
-func (d* DoublyLinkedList) RemoveFront() {
+func (d *DoublyLinkedList) RemoveFront() {
 	oldHead := d.GetHead()
-	if (oldHead != nil) {
-		if (oldHead == d.GetTail()) {
+	if oldHead != nil {
+		if oldHead == d.GetTail() {
 			d.tail = nil
 			d.head = nil
 		} else {
@@ -115,10 +113,10 @@ func (d* DoublyLinkedList) RemoveFront() {
 	}
 }
 
-func (d* DoublyLinkedList) RemoveBack() {
+func (d *DoublyLinkedList) RemoveBack() {
 	oldTail := d.GetTail()
-	if (oldTail != nil) {
-		if (oldTail == d.GetHead()) {
+	if oldTail != nil {
+		if oldTail == d.GetHead() {
 			d.tail = nil
 			d.head = nil
 		} else {
