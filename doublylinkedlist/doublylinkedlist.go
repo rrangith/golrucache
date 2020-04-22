@@ -83,3 +83,35 @@ func (d *DoublyLinkedList) InsertBack(node *node.Node) {
 	d.tail = node
 	d.size += 1
 }
+
+func (d* DoublyLinkedList) RemoveFront() {
+	oldHead := d.GetHead()
+	if (oldHead != nil) {
+		if (oldHead == d.GetTail()) {
+			d.tail = nil
+			d.head = nil
+		} else {
+			newHead := oldHead.GetNext()
+			newHead.SetPrev(nil)
+			d.head = newHead
+		}
+
+		d.size -= 1
+	}
+}
+
+func (d* DoublyLinkedList) RemoveBack() {
+	oldTail := d.GetTail()
+	if (oldTail != nil) {
+		if (oldTail == d.GetHead()) {
+			d.tail = nil
+			d.head = nil
+		} else {
+			newTail := oldTail.GetPrev()
+			newTail.SetNext(nil)
+			d.tail = newTail
+		}
+
+		d.size -= 1
+	}
+}

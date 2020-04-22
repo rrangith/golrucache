@@ -33,8 +33,14 @@ func (n *Node) SetKey(key interface{}) {
 }
 
 func (n *Node) RemoveNode() {
-	n.next.prev = n.prev
-	n.prev.next = n.next
+	if (n.next != nil) {
+		n.next.prev = n.prev
+	} 
+	
+	if (n.prev != nil) {
+		n.prev.next = n.next
+	}
+	
 	n.next = nil
 	n.prev = nil
 }
@@ -47,8 +53,12 @@ func (n *Node) SetNext(newNode *Node) {
 	if (n.next != nil) {
 		n.next.prev = newNode
 	}
-	newNode.next = n.next
-	newNode.prev = n
+
+	if (newNode != nil) {
+		newNode.next = n.next
+		newNode.prev = n
+	}
+	
 	n.next = newNode
 }
 
@@ -65,8 +75,12 @@ func (n *Node) SetPrev(newNode *Node) {
 	if (n.prev != nil) {
 		n.prev.next = newNode
 	}
-	newNode.next = n
-	newNode.prev = n.prev
+
+	if (newNode != nil) {
+		newNode.next = n
+		newNode.prev = n.prev
+	}
+	
 	n.prev = newNode
 }
 

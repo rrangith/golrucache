@@ -97,6 +97,30 @@ func TestRemove(t *testing.T) {
 	}
 }
 
+func TestRemoveLast(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
+
+	n1.SetNext(n2)
+	n2.RemoveNode()
+
+	if (n1.next != nil) {
+		t.Errorf("n1 next should point to nil")
+	}
+}
+
+func TestRemoveFirst(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
+
+	n1.SetNext(n2)
+	n1.RemoveNode()
+
+	if (n2.prev != nil) {
+		t.Errorf("n2 prev should point to nil")
+	}
+}
+
 func TestSetNext(t *testing.T) {
 	n1 := MakeNode("key1", "hi", nil, nil)
 	n2 := MakeNode("key2", 1, nil, nil)
@@ -123,11 +147,53 @@ func TestSetNext(t *testing.T) {
 	}
 
 	if (n3.next != nil) {
-		t.Errorf("n3 next should point to n3")
+		t.Errorf("n3 next should point to nil")
 	}
 
 	if (n3.prev != n2) {
 		t.Errorf("n3 prev should point to n2")
+	}
+}
+
+func TestSetNextMiddle(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
+
+	n1.SetNext(n2)
+	n2.SetNextVal("key3", 3)
+	n3 := n2.next
+
+	n2.SetNextVal("keymiddle", "middle")
+
+	nMid := n2.next
+
+	if (n2.next != nMid) {
+		t.Errorf("n2 next should point to nMid")
+	}
+
+	if (nMid.prev != n2) {
+		t.Errorf("nMid prev should point to n2")
+	}
+
+	if (nMid.next != n3) {
+		t.Errorf("nMid next should point to n3")
+	}
+
+	if (n3.prev != nMid) {
+		t.Errorf("n3 prev should point to nMid")
+	}
+}
+
+func TestSetNextNil(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n1.SetNext(nil)
+
+	if (n1.next != nil) {
+		t.Errorf("n1 next should point to nil")
+	}
+
+	if (n1.prev != nil) {
+		t.Errorf("n1 prev should point to nil")
 	}
 }
 
@@ -173,6 +239,48 @@ func TestSetPrev(t *testing.T) {
 
 	if (n3.prev != n2) {
 		t.Errorf("n3 prev should point to n2")
+	}
+}
+
+func TestSetPrevMiddle(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
+
+	n1.SetNext(n2)
+	n2.SetNextVal("key3", 3)
+	n3 := n2.next
+
+	n3.SetPrevVal("keymiddle", "middle")
+
+	nMid := n3.prev
+
+	if (n2.next != nMid) {
+		t.Errorf("n2 next should point to nMid")
+	}
+
+	if (nMid.prev != n2) {
+		t.Errorf("nMid prev should point to n2")
+	}
+
+	if (nMid.next != n3) {
+		t.Errorf("nMid next should point to n3")
+	}
+
+	if (n3.prev != nMid) {
+		t.Errorf("n3 prev should point to nMid")
+	}
+}
+
+func TestSetPrevNil(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n1.SetPrev(nil)
+
+	if (n1.next != nil) {
+		t.Errorf("n1 next should point to nil")
+	}
+
+	if (n1.prev != nil) {
+		t.Errorf("n1 prev should point to nil")
 	}
 }
 
