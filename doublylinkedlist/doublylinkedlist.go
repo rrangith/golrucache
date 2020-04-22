@@ -33,6 +33,21 @@ func (d *DoublyLinkedList) GetHead() *node.Node {
 	return d.head
 }
 
+func (d *DoublyLinkedList) RemoveNode(n *node.Node) { // must assume that this node is in the linked list
+	if (n == nil) {
+		return
+	}
+
+	if (n == d.head) {
+		d.RemoveFront()
+	} else if (n == d.tail) {
+		d.RemoveBack()
+	} else {
+		d.size--
+		n.RemoveNode()
+	}
+}
+
 func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) {
 	if (d.head != nil) {
 		d.head.SetPrevVal(key, val)

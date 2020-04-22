@@ -67,6 +67,68 @@ func TestGetHead(t *testing.T) {
 	}
 }
 
+func TestRemoveNode(t *testing.T) {
+	n1 := node.MakeNode("key1", "hi", nil, nil)
+	n2 := node.MakeNode("key2", "hi", nil, nil)
+	n3 := node.MakeNode("key3", "hi", nil, nil)
+
+	d := MakeDoublyLinkedList()
+
+	d.InsertBack(n1)
+	d.InsertBack(n2)
+	d.InsertBack(n3)
+
+	d.RemoveNode(n2)
+
+	if (d.GetSize() != 2) {
+		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 2)
+	}
+
+}
+
+func TestRemoveNodeHead(t *testing.T) { //TODO MORE TESTS FOR THIS
+	n1 := node.MakeNode("key1", "hi", nil, nil)
+
+	d := MakeDoublyLinkedList()
+
+	d.InsertFront(n1)
+
+	d.RemoveNode(n1)
+
+	if (d.GetSize() != 0) {
+		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 0)
+	}
+}
+
+func TestRemoveNodeNil(t *testing.T) {
+	d := MakeDoublyLinkedList()
+
+	d.RemoveNode(nil)
+
+	if (d.GetSize() != 0) {
+		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 0)
+	}
+}
+
+func TestRemoveNodeTail(t *testing.T) {
+	d := MakeDoublyLinkedList()
+	
+	d.InsertBackVal("key2", "h2")
+
+	n1 := node.MakeNode("key1", "hi", nil, nil)
+	d.InsertBack(n1)
+
+	d.RemoveNode(n1)
+
+	if (d.GetSize() != 1) {
+		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 1)
+	}
+
+	if (d.GetTail().GetKey() != "key2") {
+		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().GetVal(), "key2")
+	}
+}
+
 func TestInsertFront(t *testing.T) {
 	n1 := node.MakeNode("key1", "hi", nil, nil)
 	n2 := node.MakeNode("key2", 1, nil, nil)
