@@ -1,6 +1,6 @@
 package doublylinkedlist
 
-import "learning-go/LRU-Cache/Node"
+import "golrucache/node"
 
 type DoublyLinkedList struct {
 	head *node.Node

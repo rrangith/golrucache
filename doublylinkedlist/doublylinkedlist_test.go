@@ -2,7 +2,7 @@ package doublylinkedlist
 
 import (
 	"testing"
-	"learning-go/LRU-Cache/Node"
+	"golrucache/node"
 )
 
 func TestMake(t *testing.T) {
