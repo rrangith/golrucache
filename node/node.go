@@ -1,21 +1,35 @@
 package node
 
 type Node struct {
+	key interface{}
 	val interface{}
 	next *Node
 	prev *Node
 }
 
-func MakeNode(val interface{}, next, prev *Node) *Node {
+func MakeNode(key, val interface{}, next, prev *Node) *Node {
 	return &Node {
+		key: key,
 		val: val,
 		next: next,
 		prev: prev,
 	}
 }
 
+func (n *Node) GetKey() interface{} {
+	return n.key
+}
+
 func (n *Node) GetVal() interface{} {
 	return n.val
+}
+
+func (n *Node) SetVal(val interface{}) {
+	n.val = val
+}
+
+func (n *Node) SetKey(key interface{}) {
+	n.key = key
 }
 
 func (n *Node) RemoveNode() {
@@ -38,8 +52,8 @@ func (n *Node) SetNext(newNode *Node) {
 	n.next = newNode
 }
 
-func (n *Node) SetNextVal(val interface{}) {
-	newNode := MakeNode(val, n.next, n)
+func (n *Node) SetNextVal(key, val interface{}) {
+	newNode := MakeNode(key, val, n.next, n)
 	n.SetNext(newNode)
 }
 
@@ -56,7 +70,7 @@ func (n *Node) SetPrev(newNode *Node) {
 	n.prev = newNode
 }
 
-func (n *Node) SetPrevVal(val interface{}) {
-	newNode := MakeNode(val, n, n.prev)
+func (n *Node) SetPrevVal(key, val interface{}) {
+	newNode := MakeNode(key, val, n, n.prev)
 	n.SetPrev(newNode)
 }

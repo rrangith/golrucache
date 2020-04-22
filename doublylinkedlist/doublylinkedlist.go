@@ -16,8 +16,8 @@ func MakeDoublyLinkedList() *DoublyLinkedList {
 	}
 }
 
-func MakeDoublyLinkedListVal(val interface{}) *DoublyLinkedList {
-	newNode := node.MakeNode(val, nil, nil)
+func MakeDoublyLinkedListVal(key, val interface{}) *DoublyLinkedList {
+	newNode := node.MakeNode(key, val, nil, nil)
 	return &DoublyLinkedList {
 		head: newNode,
 		tail: newNode,
@@ -33,12 +33,12 @@ func (d *DoublyLinkedList) GetHead() *node.Node {
 	return d.head
 }
 
-func (d *DoublyLinkedList) InsertFrontVal(val interface{}) {
+func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) {
 	if (d.head != nil) {
-		d.head.SetPrevVal(val)
+		d.head.SetPrevVal(key, val)
 		d.head = d.head.GetPrev()
 	} else {
-		newNode := node.MakeNode(val, nil, nil)
+		newNode := node.MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}
@@ -61,12 +61,12 @@ func (d *DoublyLinkedList) GetTail() *node.Node {
 	return d.tail
 }
 
-func (d *DoublyLinkedList) InsertBackVal(val interface{}) {
+func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) {
 	if (d.tail != nil) {
-		d.tail.SetNextVal(val)
+		d.tail.SetNextVal(key, val)
 		d.tail = d.tail.GetNext()
 	} else {
-		newNode := node.MakeNode(val, nil, nil)
+		newNode := node.MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}
