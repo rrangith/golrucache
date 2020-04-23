@@ -1,108 +1,147 @@
 package doublylinkedlist
 
-import "golrucache/node"
+import "errors"
 
 type DoublyLinkedList struct {
-	head *node.Node
-	tail *node.Node
+	head *Node
+	tail *Node
 	size int
 }
 
 func MakeDoublyLinkedList() *DoublyLinkedList {
-	return &DoublyLinkedList {
+	return &DoublyLinkedList{
 		head: nil,
 		tail: nil,
 		size: 0,
 	}
 }
 
-func MakeDoublyLinkedListVal(key, val interface{}) *DoublyLinkedList {
-	newNode := node.MakeNode(key, val, nil, nil)
-	return &DoublyLinkedList {
+func MakeDoublyLinkedListVal(key, val interface{}) (*DoublyLinkedList, error) {
+	if key == nil || val == nil {
+		return nil, errors.New("key and val parameters must not be nil")
+	}
+	newNode := MakeNode(key, val, nil, nil)
+	return &DoublyLinkedList{
 		head: newNode,
 		tail: newNode,
 		size: 1,
-	}
+	}, nil
 }
 
 func (d *DoublyLinkedList) GetSize() int {
 	return d.size
 }
 
-func (d *DoublyLinkedList) GetHead() *node.Node {
+func (d *DoublyLinkedList) GetHead() *Node {
 	return d.head
 }
 
-func (d *DoublyLinkedList) RemoveNode(n *node.Node) { // must assume that this node is in the linked list
-	if (n == nil) {
-		return
+func (d *DoublyLinkedList) RemoveNode(n *Node) error { // must assume that this node is in the linked list
+	if n == nil {
+		return errors.New("Can't pass in nil")
 	}
 
-	if (n == d.head) {
+	if n == d.head {
 		d.RemoveFront()
-	} else if (n == d.tail) {
+	} else if n == d.tail {
 		d.RemoveBack()
 	} else {
 		d.size--
 		n.RemoveNode()
 	}
+
+	return nil
 }
 
-func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) {
-	if (d.head != nil) {
+func (d *DoublyLinkedList) MoveToFront(n *Node) error { // must assume that this node is in the linked list
+	if n == nil {
+		return errors.New("Can't pass in nil")
+	}
+
+	d.RemoveNode(n)
+	d.InsertFront(n)
+
+	return nil
+}
+
+func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) error {
+	if key == nil || val == nil {
+		return errors.New("key and val parameters must not be nil")
+	}
+
+	if d.head != nil {
 		d.head.SetPrevVal(key, val)
 		d.head = d.head.GetPrev()
 	} else {
-		newNode := node.MakeNode(key, val, nil, nil)
+		newNode := MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}
 
 	d.size += 1
+	return nil
 }
 
-func (d *DoublyLinkedList) InsertFront(node *node.Node) {
-	if (d.head != nil) {
-		d.head.SetPrev(node)
-	} else {
-		d.tail = node
+func (d *DoublyLinkedList) InsertFront(n *Node) error {
+	if n == nil {
+		return errors.New("Can't pass in nil")
 	}
 
-	d.head = node
+	if d.head != nil {
+		d.head.SetPrev(n)
+	} else {
+		d.tail = n
+	}
+
+	d.head = n
 	d.size += 1
+
+	return nil
 }
 
-func (d *DoublyLinkedList) GetTail() *node.Node {
+func (d *DoublyLinkedList) GetTail() *Node {
 	return d.tail
 }
 
-func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) {
-	if (d.tail != nil) {
+func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) error {
+	if key == nil || val == nil {
+		return errors.New("key and val parameters must not be nil")
+	}
+
+	if d.tail != nil {
 		d.tail.SetNextVal(key, val)
 		d.tail = d.tail.GetNext()
 	} else {
-		newNode := node.MakeNode(key, val, nil, nil)
+		newNode := MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}
+
 	d.size += 1
+	return nil
 }
 
-func (d *DoublyLinkedList) InsertBack(node *node.Node) {
-	if (d.tail != nil) {
-		d.tail.SetNext(node)
-	} else {
-		d.head = node
+func (d *DoublyLinkedList) InsertBack(n *Node) error {
+	if n == nil {
+		return errors.New("Can't pass in nil")
 	}
-	
-	d.tail = node
+
+	if d.tail != nil {
+		d.tail.SetNext(n)
+	} else {
+		d.head = n
+	}
+
+	d.tail = n
 	d.size += 1
+
+	return nil
 }
 
-func (d* DoublyLinkedList) RemoveFront() {
+func (d *DoublyLinkedList) RemoveFront() error {
 	oldHead := d.GetHead()
-	if (oldHead != nil) {
-		if (oldHead == d.GetTail()) {
+	if oldHead != nil {
+		if oldHead == d.GetTail() {
 			d.tail = nil
 			d.head = nil
 		} else {
@@ -112,13 +151,16 @@ func (d* DoublyLinkedList) RemoveFront() {
 		}
 
 		d.size -= 1
+		return nil
+	} else {
+		return errors.New("Head is nil, so can't remove it")
 	}
 }
 
-func (d* DoublyLinkedList) RemoveBack() {
+func (d *DoublyLinkedList) RemoveBack() error {
 	oldTail := d.GetTail()
-	if (oldTail != nil) {
-		if (oldTail == d.GetHead()) {
+	if oldTail != nil {
+		if oldTail == d.GetHead() {
 			d.tail = nil
 			d.head = nil
 		} else {
@@ -128,5 +170,8 @@ func (d* DoublyLinkedList) RemoveBack() {
 		}
 
 		d.size -= 1
+		return nil
+	} else {
+		return errors.New("Tail is nil, so can't remove it")
 	}
 }
