@@ -53,20 +53,48 @@ func TestGetVal(t *testing.T) {
 func TestSetVal(t *testing.T) {
 	n := MakeNode("key", "hi", nil, nil)
 
-	n.SetVal(1)
+	err := n.SetVal(1)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	if n.GetVal() != 1 {
 		t.Errorf("Val was incorrect, got: %d, want: %d.", n.GetVal(), 1)
 	}
 }
 
+func TestSetValNil(t *testing.T) {
+	n := MakeNode("key", "hi", nil, nil)
+
+	err := n.SetVal(nil)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+}
+
 func TestSetKey(t *testing.T) {
 	n := MakeNode("key", "hi", nil, nil)
 
-	n.SetKey("Newkey")
+	err := n.SetKey("Newkey")
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	if n.GetKey() != "Newkey" {
 		t.Errorf("Key was incorrect, got: %s, want: %s.", n.GetKey(), "Newkey")
+	}
+}
+
+func TestSetKeyNil(t *testing.T) {
+	n := MakeNode("key", "hi", nil, nil)
+
+	err := n.SetKey(nil)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
 	}
 }
 
@@ -126,7 +154,11 @@ func TestSetNext(t *testing.T) {
 	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.SetNext(n2)
-	n2.SetNextVal("key3", 3)
+	err := n2.SetNextVal("key3", 3)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	n3 := n2.next
 
@@ -163,7 +195,11 @@ func TestSetNextMiddle(t *testing.T) {
 	n2.SetNextVal("key3", 3)
 	n3 := n2.next
 
-	n2.SetNextVal("keymiddle", "middle")
+	err := n2.SetNextVal("keymiddle", "middle")
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	nMid := n2.next
 
@@ -181,6 +217,31 @@ func TestSetNextMiddle(t *testing.T) {
 
 	if n3.prev != nMid {
 		t.Errorf("n3 prev should point to nMid")
+	}
+}
+
+func TestSetNextValNil(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	err := n1.SetNextVal(nil, 1)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+
+	err = n1.SetNextVal(1, nil)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+
+	err = n1.SetNextVal(nil, nil)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+
+	if n1.next != nil {
+		t.Errorf("n1 next should be nil, but it is not")
 	}
 }
 
@@ -213,7 +274,11 @@ func TestSetPrev(t *testing.T) {
 	n2 := MakeNode("key2", 1, nil, nil)
 
 	n3.SetPrev(n2)
-	n2.SetPrevVal("key1", 3)
+	err := n2.SetPrevVal("key1", 3)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	n1 := n2.prev
 
@@ -250,7 +315,11 @@ func TestSetPrevMiddle(t *testing.T) {
 	n2.SetNextVal("key3", 3)
 	n3 := n2.next
 
-	n3.SetPrevVal("keymiddle", "middle")
+	err := n3.SetPrevVal("keymiddle", "middle")
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	nMid := n3.prev
 
@@ -268,6 +337,31 @@ func TestSetPrevMiddle(t *testing.T) {
 
 	if n3.prev != nMid {
 		t.Errorf("n3 prev should point to nMid")
+	}
+}
+
+func TestSetPrevValNil(t *testing.T) {
+	n1 := MakeNode("key1", "hi", nil, nil)
+	err := n1.SetPrevVal(nil, 1)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+
+	err = n1.SetPrevVal(1, nil)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+
+	err = n1.SetPrevVal(nil, nil)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+
+	if n1.prev != nil {
+		t.Errorf("n1 next should be nil, but it is not")
 	}
 }
 

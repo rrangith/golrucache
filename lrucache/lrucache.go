@@ -38,12 +38,11 @@ func (l *LRUCache) Get(key interface{}) interface{} {
 	l.Lock()
 	defer l.Unlock()
 
-	node, found := l.cache[key]
+	n, found := l.cache[key]
 
 	if found {
-		l.list.RemoveNode(node)
-		l.list.InsertFront(node)
-		return node.GetVal()
+		l.MoveToFront(n)
+		return n.GetVal()
 	} else {
 		return nil
 	}
@@ -59,8 +58,7 @@ func (l *LRUCache) Set(key, val interface{}) bool {
 	oldNode, found := l.cache[key]
 
 	if found {
-		l.list.RemoveNode(oldNode)
-		l.list.InsertFront(oldNode)
+		l.MoveToFront(oldNode)
 		oldNode.SetVal(val)
 	} else {
 		newNode := doublylinkedlist.MakeNode(key, val, nil, nil)
