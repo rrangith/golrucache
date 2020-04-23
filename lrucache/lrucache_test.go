@@ -3,7 +3,11 @@ package lrucache
 import "testing"
 
 func TestMake(t *testing.T) {
-	l := MakeLRUCache(1)
+	l, err := MakeLRUCache(1)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	if l.cap != 1 {
 		t.Errorf("Cap was incorrect, got: %d, want: %d.", l.cap, 1)
@@ -22,8 +26,24 @@ func TestMake(t *testing.T) {
 	}
 }
 
+func TestMakeBadCap(t *testing.T) {
+	l, err := MakeLRUCache(0)
+
+	if err == nil {
+		t.Errorf("Error should have occured")
+	}
+
+	if l != nil {
+		t.Errorf("List should be nil")
+	}
+}
+
 func TestGetSize(t *testing.T) {
-	l := MakeLRUCache(2)
+	l, err := MakeLRUCache(2)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	if l.GetSize() != 0 {
 		t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), 0)
@@ -43,7 +63,11 @@ func TestGetSize(t *testing.T) {
 }
 
 func TestGetCap(t *testing.T) {
-	l := MakeLRUCache(1)
+	l, err := MakeLRUCache(1)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	if l.GetCap() != 1 {
 		t.Errorf("Cap was incorrect, got: %d, want: %d.", l.GetCap(), 1)
@@ -51,7 +75,11 @@ func TestGetCap(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	l := MakeLRUCache(1)
+	l, err := MakeLRUCache(1)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	l.Set("key1", "hi")
 
@@ -61,7 +89,11 @@ func TestGet(t *testing.T) {
 }
 
 func TestGetNotFound(t *testing.T) {
-	l := MakeLRUCache(1)
+	l, err := MakeLRUCache(1)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	if l.Get("key1") != nil {
 		t.Errorf("Get was incorrect, got: %s, want: nil.", l.Get("key1"))
@@ -69,7 +101,11 @@ func TestGetNotFound(t *testing.T) {
 }
 
 func TestSet(t *testing.T) {
-	l := MakeLRUCache(10)
+	l, err := MakeLRUCache(10)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	for i := 0; i < 10; i++ {
 		l.Set(i, i)
@@ -105,7 +141,11 @@ func TestSet(t *testing.T) {
 }
 
 func TestSetNil(t *testing.T) {
-	l := MakeLRUCache(10)
+	l, err := MakeLRUCache(10)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 
 	l.Set(nil, "hi")
 

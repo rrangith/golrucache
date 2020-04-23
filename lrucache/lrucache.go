@@ -1,6 +1,7 @@
 package lrucache
 
 import (
+	"errors"
 	"golrucache/doublylinkedlist"
 	"sync"
 )
@@ -12,13 +13,16 @@ type LRUCache struct {
 	sync.Mutex
 }
 
-func MakeLRUCache(cap int) *LRUCache {
-	//if cap is <= 0 then throw error
+func MakeLRUCache(cap int) (*LRUCache, error) {
+	if cap <= 0 {
+		return nil, errors.New("cap must be greater than 0")
+	}
+
 	return &LRUCache{
 		cache: make(map[interface{}]*doublylinkedlist.Node, cap),
 		list:  doublylinkedlist.MakeDoublyLinkedList(),
 		cap:   cap,
-	}
+	}, nil
 }
 
 // Need a lock because a write could be taking place, which might alter the size
@@ -41,16 +45,16 @@ func (l *LRUCache) Get(key interface{}) interface{} {
 	n, found := l.cache[key]
 
 	if found {
-		l.MoveToFront(n)
+		l.list.MoveToFront(n)
 		return n.GetVal()
 	} else {
 		return nil
 	}
 }
 
-func (l *LRUCache) Set(key, val interface{}) bool {
+func (l *LRUCache) Set(key, val interface{}) error {
 	if key == nil || val == nil {
-		return false
+		return errors.New("key and val must not be nil")
 	}
 	l.Lock()
 	defer l.Unlock()
@@ -58,7 +62,7 @@ func (l *LRUCache) Set(key, val interface{}) bool {
 	oldNode, found := l.cache[key]
 
 	if found {
-		l.MoveToFront(oldNode)
+		l.list.MoveToFront(oldNode)
 		oldNode.SetVal(val)
 	} else {
 		newNode := doublylinkedlist.MakeNode(key, val, nil, nil)
@@ -71,5 +75,5 @@ func (l *LRUCache) Set(key, val interface{}) bool {
 		l.cache[key] = newNode
 		l.list.InsertFront(newNode) // this will update the list's size
 	}
-	return true
+	return nil
 }

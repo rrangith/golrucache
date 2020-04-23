@@ -38,7 +38,7 @@ func (d *DoublyLinkedList) GetHead() *Node {
 
 func (d *DoublyLinkedList) RemoveNode(n *Node) error { // must assume that this node is in the linked list
 	if n == nil {
-		return errors.New("Can not pass in nil")
+		return errors.New("Can't pass in nil")
 	}
 
 	if n == d.head {
@@ -55,7 +55,7 @@ func (d *DoublyLinkedList) RemoveNode(n *Node) error { // must assume that this 
 
 func (d *DoublyLinkedList) MoveToFront(n *Node) error { // must assume that this node is in the linked list
 	if n == nil {
-		return errors.New("Can not pass in nil")
+		return errors.New("Can't pass in nil")
 	}
 
 	d.RemoveNode(n)
@@ -84,7 +84,7 @@ func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) error {
 
 func (d *DoublyLinkedList) InsertFront(n *Node) error {
 	if n == nil {
-		return errors.New("Can not pass in nil")
+		return errors.New("Can't pass in nil")
 	}
 
 	if d.head != nil {
@@ -123,7 +123,7 @@ func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) error {
 
 func (d *DoublyLinkedList) InsertBack(n *Node) error {
 	if n == nil {
-		return errors.New("Can not pass in nil")
+		return errors.New("Can't pass in nil")
 	}
 
 	if d.tail != nil {
