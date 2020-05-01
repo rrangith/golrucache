@@ -1,3 +1,7 @@
+[![GoDoc](https://godoc.org/github.com/rrangith/golrucache/doublylinkedlist?status.svg)](https://godoc.org/github.com/rrangith/golrucache/doublylinkedlist)
+[![codecov](https://codecov.io/gh/rrangith/golrucache/branch/master/graph/badge.svg)](https://codecov.io/gh/rrangith/golrucache)
+[![Go Report Card](https://goreportcard.com/badge/github.com/rrangith/golrucache)](https://goreportcard.com/report/github.com/rrangith/golrucache)
+[![GitHub license](https://img.shields.io/github/license/rrangith/golrucache)](https://github.com/rrangith/golrucache/blob/master/LICENSE)
 # Doubly Linked List
 This is a doubly linked list which has access to the head and tail pointers along with keeping track of size
 
