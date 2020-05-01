@@ -10,7 +10,8 @@ type Node struct {
 	prev *Node
 }
 
-func makeNode(key, val interface{}, next, prev *Node) *Node {
+// MakeNode creates a node
+func MakeNode(key, val interface{}, next, prev *Node) *Node {
 	return &Node{
 		key:  key,
 		val:  val,
@@ -19,15 +20,18 @@ func makeNode(key, val interface{}, next, prev *Node) *Node {
 	}
 }
 
-func (n *Node) getKey() interface{} {
+// GetKey will return this node's key
+func (n *Node) GetKey() interface{} {
 	return n.key
 }
 
-func (n *Node) getVal() interface{} {
+// GetVal will return this node's val
+func (n *Node) GetVal() interface{} {
 	return n.val
 }
 
-func (n *Node) setVal(val interface{}) error {
+// SetVal will set this node's val to the one passed in
+func (n *Node) SetVal(val interface{}) error {
 	if val == nil {
 		return errors.New("val can't be nil")
 	}
@@ -35,7 +39,8 @@ func (n *Node) setVal(val interface{}) error {
 	return nil
 }
 
-func (n *Node) setKey(key interface{}) error {
+// SetKey will set this node's key to the one passed in
+func (n *Node) SetKey(key interface{}) error {
 	if key == nil {
 		return errors.New("key can't be nil")
 	}
@@ -78,7 +83,7 @@ func (n *Node) setNextVal(key, val interface{}) error {
 		return errors.New("key and val parameters must not be nil")
 	}
 
-	newNode := makeNode(key, val, n.next, n)
+	newNode := MakeNode(key, val, n.next, n)
 	n.setNext(newNode)
 	return nil
 }
@@ -105,7 +110,7 @@ func (n *Node) setPrevVal(key, val interface{}) error {
 		return errors.New("key and val parameters must not be nil")
 	}
 
-	newNode := makeNode(key, val, n, n.prev)
+	newNode := MakeNode(key, val, n, n.prev)
 	n.setPrev(newNode)
 	return nil
 }

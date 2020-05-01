@@ -23,7 +23,7 @@ func MakeDoublyLinkedListVal(key, val interface{}) (*DoublyLinkedList, error) {
 	if key == nil || val == nil {
 		return nil, errors.New("key and val parameters must not be nil")
 	}
-	newNode := makeNode(key, val, nil, nil)
+	newNode := MakeNode(key, val, nil, nil)
 	return &DoublyLinkedList{
 		head: newNode,
 		tail: newNode,
@@ -86,7 +86,7 @@ func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) error {
 		d.head.setPrevVal(key, val)
 		d.head = d.head.getPrev()
 	} else {
-		newNode := makeNode(key, val, nil, nil)
+		newNode := MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}
@@ -123,7 +123,7 @@ func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) error {
 		d.tail.setNextVal(key, val)
 		d.tail = d.tail.getNext()
 	} else {
-		newNode := makeNode(key, val, nil, nil)
+		newNode := MakeNode(key, val, nil, nil)
 		d.head = newNode
 		d.tail = newNode
 	}

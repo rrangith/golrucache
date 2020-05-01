@@ -3,7 +3,7 @@ package doublylinkedlist
 import "testing"
 
 func TestMakeNode(t *testing.T) {
-	n := makeNode(1, 1, nil, nil)
+	n := MakeNode(1, 1, nil, nil)
 
 	if n.key != 1 {
 		t.Errorf("Key was incorrect, got: %d, want: %d.", n.key, 1)
@@ -23,7 +23,7 @@ func TestMakeNode(t *testing.T) {
 }
 
 func TestMakeString(t *testing.T) {
-	n := makeNode("key", "hi", nil, nil)
+	n := MakeNode("key", "hi", nil, nil)
 
 	if n.key != "key" {
 		t.Errorf("Key was incorrect, got: %s, want: %s.", n.key, "key")
@@ -35,39 +35,39 @@ func TestMakeString(t *testing.T) {
 }
 
 func TestGetKey(t *testing.T) {
-	n := makeNode("key", "hi", nil, nil)
+	n := MakeNode("key", "hi", nil, nil)
 
-	if n.getKey() != "key" {
-		t.Errorf("Key was incorrect, got: %s, want: %s.", n.getKey(), "key")
+	if n.GetKey() != "key" {
+		t.Errorf("Key was incorrect, got: %s, want: %s.", n.GetKey(), "key")
 	}
 }
 
 func TestGetVal(t *testing.T) {
-	n := makeNode("key", "hi", nil, nil)
+	n := MakeNode("key", "hi", nil, nil)
 
-	if n.getVal() != "hi" {
-		t.Errorf("Val was incorrect, got: %s, want: %s.", n.getVal(), "hi")
+	if n.GetVal() != "hi" {
+		t.Errorf("Val was incorrect, got: %s, want: %s.", n.GetVal(), "hi")
 	}
 }
 
 func TestSetVal(t *testing.T) {
-	n := makeNode("key", "hi", nil, nil)
+	n := MakeNode("key", "hi", nil, nil)
 
-	err := n.setVal(1)
+	err := n.SetVal(1)
 
 	if err != nil {
 		t.Errorf(err.Error())
 	}
 
-	if n.getVal() != 1 {
-		t.Errorf("Val was incorrect, got: %d, want: %d.", n.getVal(), 1)
+	if n.GetVal() != 1 {
+		t.Errorf("Val was incorrect, got: %d, want: %d.", n.GetVal(), 1)
 	}
 }
 
 func TestSetValNil(t *testing.T) {
-	n := makeNode("key", "hi", nil, nil)
+	n := MakeNode("key", "hi", nil, nil)
 
-	err := n.setVal(nil)
+	err := n.SetVal(nil)
 
 	if err == nil {
 		t.Errorf("Error should have occurred")
@@ -75,23 +75,23 @@ func TestSetValNil(t *testing.T) {
 }
 
 func TestSetKey(t *testing.T) {
-	n := makeNode("key", "hi", nil, nil)
+	n := MakeNode("key", "hi", nil, nil)
 
-	err := n.setKey("Newkey")
+	err := n.SetKey("Newkey")
 
 	if err != nil {
 		t.Errorf(err.Error())
 	}
 
-	if n.getKey() != "Newkey" {
-		t.Errorf("Key was incorrect, got: %s, want: %s.", n.getKey(), "Newkey")
+	if n.GetKey() != "Newkey" {
+		t.Errorf("Key was incorrect, got: %s, want: %s.", n.GetKey(), "Newkey")
 	}
 }
 
 func TestSetKeyNil(t *testing.T) {
-	n := makeNode("key", "hi", nil, nil)
+	n := MakeNode("key", "hi", nil, nil)
 
-	err := n.setKey(nil)
+	err := n.SetKey(nil)
 
 	if err == nil {
 		t.Errorf("Error should have occurred")
@@ -99,9 +99,9 @@ func TestSetKeyNil(t *testing.T) {
 }
 
 func TestRemove(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
-	n3 := makeNode("key3", 3, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
+	n3 := MakeNode("key3", 3, nil, nil)
 
 	n1.setNext(n2)
 	n2.setNext(n3)
@@ -126,8 +126,8 @@ func TestRemove(t *testing.T) {
 }
 
 func TestRemoveLast(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.setNext(n2)
 	n2.removeNode()
@@ -138,8 +138,8 @@ func TestRemoveLast(t *testing.T) {
 }
 
 func TestRemoveFirst(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.setNext(n2)
 	n1.removeNode()
@@ -150,8 +150,8 @@ func TestRemoveFirst(t *testing.T) {
 }
 
 func TestSetNext(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.setNext(n2)
 	err := n2.setNextVal("key3", 3)
@@ -188,8 +188,8 @@ func TestSetNext(t *testing.T) {
 }
 
 func TestSetNextMiddle(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.setNext(n2)
 	n2.setNextVal("key3", 3)
@@ -221,7 +221,7 @@ func TestSetNextMiddle(t *testing.T) {
 }
 
 func TestSetNextValNil(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 	err := n1.setNextVal(nil, 1)
 
 	if err == nil {
@@ -246,7 +246,7 @@ func TestSetNextValNil(t *testing.T) {
 }
 
 func TestSetNextNil(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 	n1.setNext(nil)
 
 	if n1.next != nil {
@@ -259,8 +259,8 @@ func TestSetNextNil(t *testing.T) {
 }
 
 func TestGetNext(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.setNext(n2)
 
@@ -270,8 +270,8 @@ func TestGetNext(t *testing.T) {
 }
 
 func TestSetPrev(t *testing.T) {
-	n3 := makeNode("key3", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n3 := MakeNode("key3", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n3.setPrev(n2)
 	err := n2.setPrevVal("key1", 3)
@@ -308,8 +308,8 @@ func TestSetPrev(t *testing.T) {
 }
 
 func TestSetPrevMiddle(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.setNext(n2)
 	n2.setNextVal("key3", 3)
@@ -341,7 +341,7 @@ func TestSetPrevMiddle(t *testing.T) {
 }
 
 func TestSetPrevValNil(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 	err := n1.setPrevVal(nil, 1)
 
 	if err == nil {
@@ -366,7 +366,7 @@ func TestSetPrevValNil(t *testing.T) {
 }
 
 func TestSetPrevNil(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 	n1.setPrev(nil)
 
 	if n1.next != nil {
@@ -379,8 +379,8 @@ func TestSetPrevNil(t *testing.T) {
 }
 
 func TestGetPrev(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	n1.setNext(n2)
 
