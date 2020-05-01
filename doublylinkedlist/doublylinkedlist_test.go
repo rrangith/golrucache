@@ -109,9 +109,9 @@ func TestGetHead(t *testing.T) {
 }
 
 func TestRemoveNode(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", "hi", nil, nil)
-	n3 := makeNode("key3", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", "hi", nil, nil)
+	n3 := MakeNode("key3", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -128,7 +128,7 @@ func TestRemoveNode(t *testing.T) {
 }
 
 func TestRemoveNodeHead(t *testing.T) { //TODO MORE TESTS FOR THIS
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -156,7 +156,7 @@ func TestRemoveNodeTail(t *testing.T) {
 
 	d.InsertBackVal("key2", "h2")
 
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 	d.InsertBack(n1)
 
 	d.RemoveNode(n1)
@@ -175,7 +175,7 @@ func TestMoveToFront(t *testing.T) {
 
 	d.InsertBackVal("key2", "h2")
 
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 	d.InsertBack(n1)
 
 	err := d.MoveToFront(n1)
@@ -223,8 +223,8 @@ func TestMoveToFrontNil(t *testing.T) {
 }
 
 func TestInsertFront(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -346,7 +346,7 @@ func TestInsertFrontValNil(t *testing.T) {
 }
 
 func TestGetTail(t *testing.T) {
-	n1 := makeNode("key", "hi", nil, nil)
+	n1 := MakeNode("key", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 	d.InsertBack(n1)
@@ -357,8 +357,8 @@ func TestGetTail(t *testing.T) {
 }
 
 func TestInsertBack(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -480,8 +480,8 @@ func TestInsertBackValNil(t *testing.T) {
 }
 
 func TestRemoveFront(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -512,7 +512,7 @@ func TestRemoveFront(t *testing.T) {
 }
 
 func TestRemoveFrontOnlyOne(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -552,8 +552,8 @@ func TestRemoveFrontEmpty(t *testing.T) {
 }
 
 func TestRemoveBack(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
-	n2 := makeNode("key2", 1, nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
+	n2 := MakeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -584,7 +584,7 @@ func TestRemoveBack(t *testing.T) {
 }
 
 func TestRemoveBackOnlyOne(t *testing.T) {
-	n1 := makeNode("key1", "hi", nil, nil)
+	n1 := MakeNode("key1", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 
