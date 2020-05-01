@@ -2,8 +2,8 @@ package lrucache
 
 import "testing"
 
-func TestMake(t *testing.T) {
-	l, err := MakeLRUCache(1)
+func TestNew(t *testing.T) {
+	l, err := New(1)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -26,8 +26,8 @@ func TestMake(t *testing.T) {
 	}
 }
 
-func TestMakeBadCap(t *testing.T) {
-	l, err := MakeLRUCache(0)
+func TestNewBadCap(t *testing.T) {
+	l, err := New(0)
 
 	if err == nil {
 		t.Errorf("Error should have occurred")
@@ -39,7 +39,7 @@ func TestMakeBadCap(t *testing.T) {
 }
 
 func TestGetSize(t *testing.T) {
-	l, err := MakeLRUCache(2)
+	l, err := New(2)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -63,7 +63,7 @@ func TestGetSize(t *testing.T) {
 }
 
 func TestGetCap(t *testing.T) {
-	l, err := MakeLRUCache(1)
+	l, err := New(1)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -75,7 +75,7 @@ func TestGetCap(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	l, err := MakeLRUCache(1)
+	l, err := New(1)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -89,7 +89,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestGetNotFound(t *testing.T) {
-	l, err := MakeLRUCache(1)
+	l, err := New(1)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -101,7 +101,7 @@ func TestGetNotFound(t *testing.T) {
 }
 
 func TestSet(t *testing.T) {
-	l, err := MakeLRUCache(10)
+	l, err := New(10)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -141,7 +141,7 @@ func TestSet(t *testing.T) {
 }
 
 func TestSetNil(t *testing.T) {
-	l, err := MakeLRUCache(10)
+	l, err := New(10)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -163,5 +163,98 @@ func TestSetNil(t *testing.T) {
 
 	if l.GetSize() != 0 {
 		t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), 0)
+	}
+}
+
+func TestRemove(t *testing.T) {
+	l, err := New(10)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	for i := 0; i < 10; i++ {
+		l.Set(i, i)
+		if l.GetSize() != i+1 {
+			t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), i+1)
+		}
+
+		if l.Get(i) != i {
+			t.Errorf("Get was incorrect, got: %d, want: %d.", l.Get(i), i)
+		}
+	}
+
+	err = l.Remove(0)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	if l.GetSize() != 9 {
+		t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), 9)
+	}
+
+	_, found := l.cache[0]
+
+	if found {
+		t.Errorf("key was not removed from cache")
+	}
+}
+
+func TestRemoveNil(t *testing.T) {
+	l, err := New(10)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	for i := 0; i < 10; i++ {
+		l.Set(i, i)
+		if l.GetSize() != i+1 {
+			t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), i+1)
+		}
+
+		if l.Get(i) != i {
+			t.Errorf("Get was incorrect, got: %d, want: %d.", l.Get(i), i)
+		}
+	}
+
+	err = l.Remove(nil)
+
+	if err == nil {
+		t.Errorf("An error should have occurred")
+	}
+
+	if l.GetSize() != 10 {
+		t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), 10)
+	}
+}
+
+func TestRemoveNotFound(t *testing.T) {
+	l, err := New(10)
+
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	for i := 0; i < 10; i++ {
+		l.Set(i, i)
+		if l.GetSize() != i+1 {
+			t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), i+1)
+		}
+
+		if l.Get(i) != i {
+			t.Errorf("Get was incorrect, got: %d, want: %d.", l.Get(i), i)
+		}
+	}
+
+	err = l.Remove("asd")
+
+	if err == nil {
+		t.Errorf("An error should have occurred")
+	}
+
+	if l.GetSize() != 10 {
+		t.Errorf("Size was incorrect, got: %d, want: %d.", l.GetSize(), 10)
 	}
 }

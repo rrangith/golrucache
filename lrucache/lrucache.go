@@ -15,8 +15,8 @@ type LRUCache struct {
 	sync.Mutex
 }
 
-// MakeLRUCache will create a cache with the given capacity, the capacity must be greater than 0
-func MakeLRUCache(cap int) (*LRUCache, error) {
+// New will create a cache with the given capacity, the capacity must be greater than 0
+func New(cap int) (*LRUCache, error) {
 	if cap <= 0 {
 		return nil, errors.New("cap must be greater than 0")
 	}
@@ -81,4 +81,23 @@ func (l *LRUCache) Set(key, val interface{}) error {
 	}
 
 	return nil
+}
+
+// Remove deletes the node with the key that was passed in, returns an error if it wasn't found
+func (l *LRUCache) Remove(key interface{}) error {
+	if key == nil {
+		return errors.New("key must not be nil")
+	}
+	l.Lock()
+	defer l.Unlock()
+
+	oldNode, found := l.cache[key]
+
+	if found {
+		l.list.RemoveNode(oldNode)
+		delete(l.cache, key)
+		return nil
+	}
+
+	return errors.New("key not found")
 }
