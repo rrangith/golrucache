@@ -2,10 +2,10 @@ package doublylinkedlist
 
 import "errors"
 
-// DoublyLinkedList is the structure that keeps track of its head and tail along with size, made up of nodes with access to prev and next nodes
+// DoublyLinkedList is the structure that keeps track of its head and tail along with size, made up of Nodes with access to prev and next Nodes
 type DoublyLinkedList struct {
-	head *node
-	tail *node
+	head *Node
+	tail *Node
 	size int
 }
 
@@ -18,7 +18,7 @@ func MakeDoublyLinkedList() *DoublyLinkedList {
 	}
 }
 
-// MakeDoublyLinkedListVal creates a single node doubly linkedlist with the key and val passed in
+// MakeDoublyLinkedListVal creates a single Node doubly linkedlist with the key and val passed in
 func MakeDoublyLinkedListVal(key, val interface{}) (*DoublyLinkedList, error) {
 	if key == nil || val == nil {
 		return nil, errors.New("key and val parameters must not be nil")
@@ -37,17 +37,17 @@ func (d *DoublyLinkedList) GetSize() int {
 }
 
 // GetHead returns the current head of the doubly linked list
-func (d *DoublyLinkedList) GetHead() *node {
+func (d *DoublyLinkedList) GetHead() *Node {
 	return d.head
 }
 
 // GetTail returns the current tail of the doubly linked list
-func (d *DoublyLinkedList) GetTail() *node {
+func (d *DoublyLinkedList) GetTail() *Node {
 	return d.tail
 }
 
-// RemoveNode removes the node passed in from the doubly linked list, must assume this node passed in is in the list
-func (d *DoublyLinkedList) RemoveNode(n *node) error {
+// RemoveNode removes the Node passed in from the doubly linked list, must assume this Node passed in is in the list
+func (d *DoublyLinkedList) RemoveNode(n *Node) error {
 	if n == nil {
 		return errors.New("Can't pass in nil")
 	}
@@ -64,8 +64,8 @@ func (d *DoublyLinkedList) RemoveNode(n *node) error {
 	return nil
 }
 
-// MoveToFront moves the node passed in to the front of the list, must assume this node passed in is in the list
-func (d *DoublyLinkedList) MoveToFront(n *node) error {
+// MoveToFront moves the Node passed in to the front of the list, must assume this Node passed in is in the list
+func (d *DoublyLinkedList) MoveToFront(n *Node) error {
 	if n == nil {
 		return errors.New("Can't pass in nil")
 	}
@@ -76,7 +76,7 @@ func (d *DoublyLinkedList) MoveToFront(n *node) error {
 	return nil
 }
 
-// InsertFrontVal will insert a node to the front of the list with the given key and val
+// InsertFrontVal will insert a Node to the front of the list with the given key and val
 func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) error {
 	if key == nil || val == nil {
 		return errors.New("key and val parameters must not be nil")
@@ -95,8 +95,8 @@ func (d *DoublyLinkedList) InsertFrontVal(key, val interface{}) error {
 	return nil
 }
 
-// InsertFront inserts the passed in node to the front of the list
-func (d *DoublyLinkedList) InsertFront(n *node) error {
+// InsertFront inserts the passed in Node to the front of the list
+func (d *DoublyLinkedList) InsertFront(n *Node) error {
 	if n == nil {
 		return errors.New("Can't pass in nil")
 	}
@@ -113,7 +113,7 @@ func (d *DoublyLinkedList) InsertFront(n *node) error {
 	return nil
 }
 
-// InsertBackVal inserts a node to the back of the list with the given key and val
+// InsertBackVal inserts a Node to the back of the list with the given key and val
 func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) error {
 	if key == nil || val == nil {
 		return errors.New("key and val parameters must not be nil")
@@ -132,8 +132,8 @@ func (d *DoublyLinkedList) InsertBackVal(key, val interface{}) error {
 	return nil
 }
 
-// InsertBack inserts the passed in node to the back of the list
-func (d *DoublyLinkedList) InsertBack(n *node) error {
+// InsertBack inserts the passed in Node to the back of the list
+func (d *DoublyLinkedList) InsertBack(n *Node) error {
 	if n == nil {
 		return errors.New("Can't pass in nil")
 	}
@@ -150,7 +150,7 @@ func (d *DoublyLinkedList) InsertBack(n *node) error {
 	return nil
 }
 
-// RemoveFront removes the node that is in the front of the list
+// RemoveFront removes the Node that is in the front of the list
 func (d *DoublyLinkedList) RemoveFront() error {
 	oldHead := d.GetHead()
 	if oldHead != nil {
@@ -170,7 +170,7 @@ func (d *DoublyLinkedList) RemoveFront() error {
 	return errors.New("Head is nil, so can't remove it")
 }
 
-// RemoveBack removes the node at the back the list
+// RemoveBack removes the Node at the back the list
 func (d *DoublyLinkedList) RemoveBack() error {
 	oldTail := d.GetTail()
 	if oldTail != nil {
