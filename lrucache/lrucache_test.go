@@ -30,7 +30,7 @@ func TestMakeBadCap(t *testing.T) {
 	l, err := MakeLRUCache(0)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if l != nil {

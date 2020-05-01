@@ -7,6 +7,7 @@ import (
 	"github.com/rrangith/golrucache/doublylinkedlist"
 )
 
+// LRUCache is a struct that evicts the least recently used item if the cache is full, it has a max size and can set and get in O(1), this structure is thread-safe
 type LRUCache struct {
 	cache map[interface{}]*doublylinkedlist.Node
 	list  *doublylinkedlist.DoublyLinkedList
@@ -14,6 +15,7 @@ type LRUCache struct {
 	sync.Mutex
 }
 
+// MakeLRUCache will create a cache with the given capacity, the capacity must be greater than 0
 func MakeLRUCache(cap int) (*LRUCache, error) {
 	if cap <= 0 {
 		return nil, errors.New("cap must be greater than 0")
@@ -26,19 +28,19 @@ func MakeLRUCache(cap int) (*LRUCache, error) {
 	}, nil
 }
 
-// Need a lock because a write could be taking place, which might alter the size
+// GetSize will return the current size of the lru cache, need a lock because a write could be taking place, which might alter the size
 func (l *LRUCache) GetSize() int {
 	l.Lock()
 	defer l.Unlock()
 	return l.list.GetSize()
 }
 
-// Don't need a lock here since cap is fixed
+// GetCap returns the capacity of the lru cache, don't need a lock here since cap is static
 func (l *LRUCache) GetCap() int {
 	return l.cap
 }
 
-// If the key is found, move the node to the front
+// Get the value with the key passed in, if the key is found, move the node to the front
 func (l *LRUCache) Get(key interface{}) interface{} {
 	l.Lock()
 	defer l.Unlock()
@@ -48,11 +50,12 @@ func (l *LRUCache) Get(key interface{}) interface{} {
 	if found {
 		l.list.MoveToFront(n)
 		return n.GetVal()
-	} else {
-		return nil
 	}
+
+	return nil
 }
 
+// Set the key value pair in the cache
 func (l *LRUCache) Set(key, val interface{}) error {
 	if key == nil || val == nil {
 		return errors.New("key and val must not be nil")
@@ -76,5 +79,6 @@ func (l *LRUCache) Set(key, val interface{}) error {
 		l.cache[key] = newNode
 		l.list.InsertFront(newNode) // this will update the list's size
 	}
+
 	return nil
 }

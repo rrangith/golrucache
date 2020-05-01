@@ -3,7 +3,7 @@ package doublylinkedlist
 import "testing"
 
 func TestMakeNode(t *testing.T) {
-	n := MakeNode(1, 1, nil, nil)
+	n := makeNode(1, 1, nil, nil)
 
 	if n.key != 1 {
 		t.Errorf("Key was incorrect, got: %d, want: %d.", n.key, 1)
@@ -23,7 +23,7 @@ func TestMakeNode(t *testing.T) {
 }
 
 func TestMakeString(t *testing.T) {
-	n := MakeNode("key", "hi", nil, nil)
+	n := makeNode("key", "hi", nil, nil)
 
 	if n.key != "key" {
 		t.Errorf("Key was incorrect, got: %s, want: %s.", n.key, "key")
@@ -35,78 +35,78 @@ func TestMakeString(t *testing.T) {
 }
 
 func TestGetKey(t *testing.T) {
-	n := MakeNode("key", "hi", nil, nil)
+	n := makeNode("key", "hi", nil, nil)
 
-	if n.GetKey() != "key" {
-		t.Errorf("Key was incorrect, got: %s, want: %s.", n.GetKey(), "key")
+	if n.getKey() != "key" {
+		t.Errorf("Key was incorrect, got: %s, want: %s.", n.getKey(), "key")
 	}
 }
 
 func TestGetVal(t *testing.T) {
-	n := MakeNode("key", "hi", nil, nil)
+	n := makeNode("key", "hi", nil, nil)
 
-	if n.GetVal() != "hi" {
-		t.Errorf("Val was incorrect, got: %s, want: %s.", n.GetVal(), "hi")
+	if n.getVal() != "hi" {
+		t.Errorf("Val was incorrect, got: %s, want: %s.", n.getVal(), "hi")
 	}
 }
 
 func TestSetVal(t *testing.T) {
-	n := MakeNode("key", "hi", nil, nil)
+	n := makeNode("key", "hi", nil, nil)
 
-	err := n.SetVal(1)
+	err := n.setVal(1)
 
 	if err != nil {
 		t.Errorf(err.Error())
 	}
 
-	if n.GetVal() != 1 {
-		t.Errorf("Val was incorrect, got: %d, want: %d.", n.GetVal(), 1)
+	if n.getVal() != 1 {
+		t.Errorf("Val was incorrect, got: %d, want: %d.", n.getVal(), 1)
 	}
 }
 
 func TestSetValNil(t *testing.T) {
-	n := MakeNode("key", "hi", nil, nil)
+	n := makeNode("key", "hi", nil, nil)
 
-	err := n.SetVal(nil)
+	err := n.setVal(nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 }
 
 func TestSetKey(t *testing.T) {
-	n := MakeNode("key", "hi", nil, nil)
+	n := makeNode("key", "hi", nil, nil)
 
-	err := n.SetKey("Newkey")
+	err := n.setKey("Newkey")
 
 	if err != nil {
 		t.Errorf(err.Error())
 	}
 
-	if n.GetKey() != "Newkey" {
-		t.Errorf("Key was incorrect, got: %s, want: %s.", n.GetKey(), "Newkey")
+	if n.getKey() != "Newkey" {
+		t.Errorf("Key was incorrect, got: %s, want: %s.", n.getKey(), "Newkey")
 	}
 }
 
 func TestSetKeyNil(t *testing.T) {
-	n := MakeNode("key", "hi", nil, nil)
+	n := makeNode("key", "hi", nil, nil)
 
-	err := n.SetKey(nil)
+	err := n.setKey(nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 }
 
 func TestRemove(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
-	n3 := MakeNode("key3", 3, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
+	n3 := makeNode("key3", 3, nil, nil)
 
-	n1.SetNext(n2)
-	n2.SetNext(n3)
+	n1.setNext(n2)
+	n2.setNext(n3)
 
-	n2.RemoveNode()
+	n2.removeNode()
 
 	if n1.next != n3 {
 		t.Errorf("n1 next should point to n3")
@@ -126,11 +126,11 @@ func TestRemove(t *testing.T) {
 }
 
 func TestRemoveLast(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n1.SetNext(n2)
-	n2.RemoveNode()
+	n1.setNext(n2)
+	n2.removeNode()
 
 	if n1.next != nil {
 		t.Errorf("n1 next should point to nil")
@@ -138,11 +138,11 @@ func TestRemoveLast(t *testing.T) {
 }
 
 func TestRemoveFirst(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n1.SetNext(n2)
-	n1.RemoveNode()
+	n1.setNext(n2)
+	n1.removeNode()
 
 	if n2.prev != nil {
 		t.Errorf("n2 prev should point to nil")
@@ -150,11 +150,11 @@ func TestRemoveFirst(t *testing.T) {
 }
 
 func TestSetNext(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n1.SetNext(n2)
-	err := n2.SetNextVal("key3", 3)
+	n1.setNext(n2)
+	err := n2.setNextVal("key3", 3)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -188,14 +188,14 @@ func TestSetNext(t *testing.T) {
 }
 
 func TestSetNextMiddle(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n1.SetNext(n2)
-	n2.SetNextVal("key3", 3)
+	n1.setNext(n2)
+	n2.setNextVal("key3", 3)
 	n3 := n2.next
 
-	err := n2.SetNextVal("keymiddle", "middle")
+	err := n2.setNextVal("keymiddle", "middle")
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -221,23 +221,23 @@ func TestSetNextMiddle(t *testing.T) {
 }
 
 func TestSetNextValNil(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	err := n1.SetNextVal(nil, 1)
+	n1 := makeNode("key1", "hi", nil, nil)
+	err := n1.setNextVal(nil, 1)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
-	err = n1.SetNextVal(1, nil)
+	err = n1.setNextVal(1, nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
-	err = n1.SetNextVal(nil, nil)
+	err = n1.setNextVal(nil, nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if n1.next != nil {
@@ -246,8 +246,8 @@ func TestSetNextValNil(t *testing.T) {
 }
 
 func TestSetNextNil(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n1.SetNext(nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n1.setNext(nil)
 
 	if n1.next != nil {
 		t.Errorf("n1 next should point to nil")
@@ -259,22 +259,22 @@ func TestSetNextNil(t *testing.T) {
 }
 
 func TestGetNext(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n1.SetNext(n2)
+	n1.setNext(n2)
 
-	if n1.GetNext() != n2 {
+	if n1.getNext() != n2 {
 		t.Errorf("n1 next should point to n2")
 	}
 }
 
 func TestSetPrev(t *testing.T) {
-	n3 := MakeNode("key3", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n3 := makeNode("key3", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n3.SetPrev(n2)
-	err := n2.SetPrevVal("key1", 3)
+	n3.setPrev(n2)
+	err := n2.setPrevVal("key1", 3)
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -308,14 +308,14 @@ func TestSetPrev(t *testing.T) {
 }
 
 func TestSetPrevMiddle(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n1.SetNext(n2)
-	n2.SetNextVal("key3", 3)
+	n1.setNext(n2)
+	n2.setNextVal("key3", 3)
 	n3 := n2.next
 
-	err := n3.SetPrevVal("keymiddle", "middle")
+	err := n3.setPrevVal("keymiddle", "middle")
 
 	if err != nil {
 		t.Errorf(err.Error())
@@ -341,23 +341,23 @@ func TestSetPrevMiddle(t *testing.T) {
 }
 
 func TestSetPrevValNil(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	err := n1.SetPrevVal(nil, 1)
+	n1 := makeNode("key1", "hi", nil, nil)
+	err := n1.setPrevVal(nil, 1)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
-	err = n1.SetPrevVal(1, nil)
+	err = n1.setPrevVal(1, nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
-	err = n1.SetPrevVal(nil, nil)
+	err = n1.setPrevVal(nil, nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if n1.prev != nil {
@@ -366,8 +366,8 @@ func TestSetPrevValNil(t *testing.T) {
 }
 
 func TestSetPrevNil(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n1.SetPrev(nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n1.setPrev(nil)
 
 	if n1.next != nil {
 		t.Errorf("n1 next should point to nil")
@@ -379,12 +379,12 @@ func TestSetPrevNil(t *testing.T) {
 }
 
 func TestGetPrev(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
-	n1.SetNext(n2)
+	n1.setNext(n2)
 
-	if n2.GetPrev() != n1 {
+	if n2.getPrev() != n1 {
 		t.Errorf("n2 prev should point to n1")
 	}
 }

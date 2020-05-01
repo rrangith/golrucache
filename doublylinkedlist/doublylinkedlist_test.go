@@ -25,20 +25,20 @@ func TestMakeVal(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 
-	if d.head.GetKey() != "key" {
-		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.head.GetKey(), "key")
+	if d.head.getKey() != "key" {
+		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.head.getKey(), "key")
 	}
 
-	if d.head.GetVal() != "hi" {
-		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.head.GetVal(), "hi")
+	if d.head.getVal() != "hi" {
+		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.head.getVal(), "hi")
 	}
 
-	if d.tail.GetKey() != "key" {
-		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.tail.GetKey(), "key")
+	if d.tail.getKey() != "key" {
+		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.tail.getKey(), "key")
 	}
 
-	if d.tail.GetVal() != "hi" {
-		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.tail.GetVal(), "hi")
+	if d.tail.getVal() != "hi" {
+		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.tail.getVal(), "hi")
 	}
 
 	if d.size != 1 {
@@ -50,7 +50,7 @@ func TestMakeValNil(t *testing.T) {
 	d, err := MakeDoublyLinkedListVal(nil, "hi")
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d != nil {
@@ -60,7 +60,7 @@ func TestMakeValNil(t *testing.T) {
 	d, err = MakeDoublyLinkedListVal("key", nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d != nil {
@@ -70,7 +70,7 @@ func TestMakeValNil(t *testing.T) {
 	d, err = MakeDoublyLinkedListVal(nil, nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d != nil {
@@ -99,19 +99,19 @@ func TestGetHead(t *testing.T) {
 
 	head := d.GetHead()
 
-	if head.GetKey() != "key" {
-		t.Errorf("Head key was incorrect, got: %s, want: %s.", head.GetKey(), "key")
+	if head.getKey() != "key" {
+		t.Errorf("Head key was incorrect, got: %s, want: %s.", head.getKey(), "key")
 	}
 
-	if head.GetVal() != "hi" {
-		t.Errorf("Head val was incorrect, got: %s, want: %s.", head.GetVal(), "hi")
+	if head.getVal() != "hi" {
+		t.Errorf("Head val was incorrect, got: %s, want: %s.", head.getVal(), "hi")
 	}
 }
 
 func TestRemoveNode(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", "hi", nil, nil)
-	n3 := MakeNode("key3", "hi", nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", "hi", nil, nil)
+	n3 := makeNode("key3", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -128,7 +128,7 @@ func TestRemoveNode(t *testing.T) {
 }
 
 func TestRemoveNodeHead(t *testing.T) { //TODO MORE TESTS FOR THIS
-	n1 := MakeNode("key1", "hi", nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -156,7 +156,7 @@ func TestRemoveNodeTail(t *testing.T) {
 
 	d.InsertBackVal("key2", "h2")
 
-	n1 := MakeNode("key1", "hi", nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
 	d.InsertBack(n1)
 
 	d.RemoveNode(n1)
@@ -165,8 +165,8 @@ func TestRemoveNodeTail(t *testing.T) {
 		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 1)
 	}
 
-	if d.GetTail().GetKey() != "key2" {
-		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().GetVal(), "key2")
+	if d.GetTail().getKey() != "key2" {
+		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().getVal(), "key2")
 	}
 }
 
@@ -175,7 +175,7 @@ func TestMoveToFront(t *testing.T) {
 
 	d.InsertBackVal("key2", "h2")
 
-	n1 := MakeNode("key1", "hi", nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
 	d.InsertBack(n1)
 
 	err := d.MoveToFront(n1)
@@ -188,15 +188,15 @@ func TestMoveToFront(t *testing.T) {
 		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 2)
 	}
 
-	if d.GetTail().GetKey() != "key2" {
-		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().GetKey(), "key2")
+	if d.GetTail().getKey() != "key2" {
+		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().getKey(), "key2")
 	}
 
-	if d.GetTail().GetNext() != nil {
+	if d.GetTail().getNext() != nil {
 		t.Errorf("Tail next should point to nil, but it does not")
 	}
 
-	if d.GetTail().GetPrev() != n1 {
+	if d.GetTail().getPrev() != n1 {
 		t.Errorf("Tail prev should point to n1, but it does not")
 	}
 
@@ -204,11 +204,11 @@ func TestMoveToFront(t *testing.T) {
 		t.Errorf("Head should be n1, but it is not")
 	}
 
-	if d.GetHead().GetNext().GetKey() != "key2" {
-		t.Errorf("Head next key was incorrect, got: %s, want: %s.", d.GetHead().GetNext().GetKey(), "key2")
+	if d.GetHead().getNext().getKey() != "key2" {
+		t.Errorf("Head next key was incorrect, got: %s, want: %s.", d.GetHead().getNext().getKey(), "key2")
 	}
 
-	if d.GetHead().GetPrev() != nil {
+	if d.GetHead().getPrev() != nil {
 		t.Errorf("Head prev should point to nil, but it does not")
 	}
 }
@@ -218,13 +218,13 @@ func TestMoveToFrontNil(t *testing.T) {
 	err := d.MoveToFront(nil)
 
 	if err == nil {
-		t.Errorf("An error should have occured")
+		t.Errorf("An error should have occurred")
 	}
 }
 
 func TestInsertFront(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -252,7 +252,7 @@ func TestInsertFront(t *testing.T) {
 		t.Errorf("Head should be n1, but it is not")
 	}
 
-	if d.GetHead().GetNext() != n2 {
+	if d.GetHead().getNext() != n2 {
 		t.Errorf("Head's next should be n2, but it is not")
 	}
 
@@ -262,12 +262,12 @@ func TestInsertFront(t *testing.T) {
 
 	d.InsertFrontVal("key3", "2")
 
-	if d.GetHead().GetKey() != "key3" {
-		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.GetHead().GetKey(), "key3")
+	if d.GetHead().getKey() != "key3" {
+		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.GetHead().getKey(), "key3")
 	}
 
-	if d.GetHead().GetVal() != "2" {
-		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.GetHead().GetVal(), "hi")
+	if d.GetHead().getVal() != "2" {
+		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.GetHead().getVal(), "hi")
 	}
 
 	if d.GetSize() != 3 {
@@ -281,7 +281,7 @@ func TestInsertFrontNil(t *testing.T) {
 	err := d.InsertFront(nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 }
 
@@ -290,20 +290,20 @@ func TestInsertFrontVal(t *testing.T) {
 
 	d.InsertFrontVal("key3", "2")
 
-	if d.GetHead().GetKey() != "key3" {
-		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.GetHead().GetKey(), "key3")
+	if d.GetHead().getKey() != "key3" {
+		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.GetHead().getKey(), "key3")
 	}
 
-	if d.GetHead().GetVal() != "2" {
-		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.GetHead().GetVal(), "hi")
+	if d.GetHead().getVal() != "2" {
+		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.GetHead().getVal(), "hi")
 	}
 
-	if d.GetTail().GetKey() != "key3" {
-		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().GetKey(), "key3")
+	if d.GetTail().getKey() != "key3" {
+		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().getKey(), "key3")
 	}
 
-	if d.GetTail().GetVal() != "2" {
-		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().GetVal(), "hi")
+	if d.GetTail().getVal() != "2" {
+		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().getVal(), "hi")
 	}
 
 	if d.GetSize() != 1 {
@@ -317,7 +317,7 @@ func TestInsertFrontValNil(t *testing.T) {
 	err := d.InsertFrontVal(nil, "2")
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d.GetSize() != 0 {
@@ -327,7 +327,7 @@ func TestInsertFrontValNil(t *testing.T) {
 	err = d.InsertFrontVal("key", nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d.GetSize() != 0 {
@@ -337,7 +337,7 @@ func TestInsertFrontValNil(t *testing.T) {
 	err = d.InsertFrontVal(nil, nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d.GetSize() != 0 {
@@ -346,7 +346,7 @@ func TestInsertFrontValNil(t *testing.T) {
 }
 
 func TestGetTail(t *testing.T) {
-	n1 := MakeNode("key", "hi", nil, nil)
+	n1 := makeNode("key", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 	d.InsertBack(n1)
@@ -357,8 +357,8 @@ func TestGetTail(t *testing.T) {
 }
 
 func TestInsertBack(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -386,7 +386,7 @@ func TestInsertBack(t *testing.T) {
 		t.Errorf("Tail should be n1, but it is not")
 	}
 
-	if d.GetTail().GetPrev() != n2 {
+	if d.GetTail().getPrev() != n2 {
 		t.Errorf("Tail's next should be n2, but it is not")
 	}
 
@@ -396,12 +396,12 @@ func TestInsertBack(t *testing.T) {
 
 	d.InsertBackVal("key3", "2")
 
-	if d.GetTail().GetKey() != "key3" {
-		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().GetKey(), "key3")
+	if d.GetTail().getKey() != "key3" {
+		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().getKey(), "key3")
 	}
 
-	if d.GetTail().GetVal() != "2" {
-		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().GetVal(), "hi")
+	if d.GetTail().getVal() != "2" {
+		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().getVal(), "hi")
 	}
 
 	if d.GetSize() != 3 {
@@ -415,7 +415,7 @@ func TestInsertBackNil(t *testing.T) {
 	err := d.InsertBack(nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 }
 
@@ -424,20 +424,20 @@ func TestInsertBackVal(t *testing.T) {
 
 	d.InsertBackVal("key3", "2")
 
-	if d.GetHead().GetKey() != "key3" {
-		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.GetHead().GetKey(), "key3")
+	if d.GetHead().getKey() != "key3" {
+		t.Errorf("Head key was incorrect, got: %s, want: %s.", d.GetHead().getKey(), "key3")
 	}
 
-	if d.GetHead().GetVal() != "2" {
-		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.GetHead().GetVal(), "hi")
+	if d.GetHead().getVal() != "2" {
+		t.Errorf("Head val was incorrect, got: %s, want: %s.", d.GetHead().getVal(), "hi")
 	}
 
-	if d.GetTail().GetKey() != "key3" {
-		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().GetKey(), "key3")
+	if d.GetTail().getKey() != "key3" {
+		t.Errorf("Tail key was incorrect, got: %s, want: %s.", d.GetTail().getKey(), "key3")
 	}
 
-	if d.GetTail().GetVal() != "2" {
-		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().GetVal(), "hi")
+	if d.GetTail().getVal() != "2" {
+		t.Errorf("Tail val was incorrect, got: %s, want: %s.", d.GetTail().getVal(), "hi")
 	}
 
 	if d.GetSize() != 1 {
@@ -451,7 +451,7 @@ func TestInsertBackValNil(t *testing.T) {
 	err := d.InsertBackVal(nil, "2")
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d.GetSize() != 0 {
@@ -461,7 +461,7 @@ func TestInsertBackValNil(t *testing.T) {
 	err = d.InsertBackVal("key", nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d.GetSize() != 0 {
@@ -471,7 +471,7 @@ func TestInsertBackValNil(t *testing.T) {
 	err = d.InsertBackVal(nil, nil)
 
 	if err == nil {
-		t.Errorf("Error should have occured")
+		t.Errorf("Error should have occurred")
 	}
 
 	if d.GetSize() != 0 {
@@ -480,8 +480,8 @@ func TestInsertBackValNil(t *testing.T) {
 }
 
 func TestRemoveFront(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -502,17 +502,17 @@ func TestRemoveFront(t *testing.T) {
 		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 1)
 	}
 
-	if n2.GetNext() != nil {
+	if n2.getNext() != nil {
 		t.Errorf("n2 next should point to nil")
 	}
 
-	if n2.GetPrev() != nil {
+	if n2.getPrev() != nil {
 		t.Errorf("n2 prev should point to nil")
 	}
 }
 
 func TestRemoveFrontOnlyOne(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -552,8 +552,8 @@ func TestRemoveFrontEmpty(t *testing.T) {
 }
 
 func TestRemoveBack(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
-	n2 := MakeNode("key2", 1, nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
+	n2 := makeNode("key2", 1, nil, nil)
 
 	d := MakeDoublyLinkedList()
 
@@ -574,17 +574,17 @@ func TestRemoveBack(t *testing.T) {
 		t.Errorf("Size was incorrect, got: %d, want: %d.", d.GetSize(), 1)
 	}
 
-	if n2.GetNext() != nil {
+	if n2.getNext() != nil {
 		t.Errorf("n2 next should point to nil")
 	}
 
-	if n2.GetPrev() != nil {
+	if n2.getPrev() != nil {
 		t.Errorf("n2 prev should point to nil")
 	}
 }
 
 func TestRemoveBackOnlyOne(t *testing.T) {
-	n1 := MakeNode("key1", "hi", nil, nil)
+	n1 := makeNode("key1", "hi", nil, nil)
 
 	d := MakeDoublyLinkedList()
 

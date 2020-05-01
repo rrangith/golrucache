@@ -2,15 +2,15 @@ package doublylinkedlist
 
 import "errors"
 
-type Node struct {
+type node struct {
 	key  interface{}
 	val  interface{}
-	next *Node
-	prev *Node
+	next *node
+	prev *node
 }
 
-func MakeNode(key, val interface{}, next, prev *Node) *Node {
-	return &Node{
+func makeNode(key, val interface{}, next, prev *node) *node {
+	return &node{
 		key:  key,
 		val:  val,
 		next: next,
@@ -18,15 +18,15 @@ func MakeNode(key, val interface{}, next, prev *Node) *Node {
 	}
 }
 
-func (n *Node) GetKey() interface{} {
+func (n *node) getKey() interface{} {
 	return n.key
 }
 
-func (n *Node) GetVal() interface{} {
+func (n *node) getVal() interface{} {
 	return n.val
 }
 
-func (n *Node) SetVal(val interface{}) error {
+func (n *node) setVal(val interface{}) error {
 	if val == nil {
 		return errors.New("val can't be nil")
 	}
@@ -34,7 +34,7 @@ func (n *Node) SetVal(val interface{}) error {
 	return nil
 }
 
-func (n *Node) SetKey(key interface{}) error {
+func (n *node) setKey(key interface{}) error {
 	if key == nil {
 		return errors.New("key can't be nil")
 	}
@@ -42,7 +42,7 @@ func (n *Node) SetKey(key interface{}) error {
 	return nil
 }
 
-func (n *Node) RemoveNode() {
+func (n *node) removeNode() {
 	if n.next != nil {
 		n.next.prev = n.prev
 	}
@@ -55,11 +55,11 @@ func (n *Node) RemoveNode() {
 	n.prev = nil
 }
 
-func (n *Node) GetNext() *Node {
+func (n *node) getNext() *node {
 	return n.next
 }
 
-func (n *Node) SetNext(newNode *Node) {
+func (n *node) setNext(newNode *node) {
 	if n.next != nil {
 		n.next.prev = newNode
 	}
@@ -72,21 +72,21 @@ func (n *Node) SetNext(newNode *Node) {
 	n.next = newNode
 }
 
-func (n *Node) SetNextVal(key, val interface{}) error {
+func (n *node) setNextVal(key, val interface{}) error {
 	if key == nil || val == nil {
 		return errors.New("key and val parameters must not be nil")
 	}
 
-	newNode := MakeNode(key, val, n.next, n)
-	n.SetNext(newNode)
+	newNode := makeNode(key, val, n.next, n)
+	n.setNext(newNode)
 	return nil
 }
 
-func (n *Node) GetPrev() *Node {
+func (n *node) getPrev() *node {
 	return n.prev
 }
 
-func (n *Node) SetPrev(newNode *Node) {
+func (n *node) setPrev(newNode *node) {
 	if n.prev != nil {
 		n.prev.next = newNode
 	}
@@ -99,12 +99,12 @@ func (n *Node) SetPrev(newNode *Node) {
 	n.prev = newNode
 }
 
-func (n *Node) SetPrevVal(key, val interface{}) error {
+func (n *node) setPrevVal(key, val interface{}) error {
 	if key == nil || val == nil {
 		return errors.New("key and val parameters must not be nil")
 	}
 
-	newNode := MakeNode(key, val, n, n.prev)
-	n.SetPrev(newNode)
+	newNode := makeNode(key, val, n, n.prev)
+	n.setPrev(newNode)
 	return nil
 }
