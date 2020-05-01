@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"golrucache/lrucache"
+	"github.com/rrangith/golrucache/lrucache"
 )
 
 type shards []*lrucache.LRUCache
