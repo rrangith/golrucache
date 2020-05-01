@@ -2,8 +2,9 @@ package lrucache
 
 import (
 	"errors"
-	"golrucache/doublylinkedlist"
 	"sync"
+
+	"github.com/rrangith/golrucache/doublylinkedlist"
 )
 
 type LRUCache struct {
