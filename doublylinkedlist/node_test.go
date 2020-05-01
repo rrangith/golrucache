@@ -37,37 +37,37 @@ func TestMakeString(t *testing.T) {
 func TestGetKey(t *testing.T) {
 	n := makeNode("key", "hi", nil, nil)
 
-	if n.getKey() != "key" {
-		t.Errorf("Key was incorrect, got: %s, want: %s.", n.getKey(), "key")
+	if n.GetKey() != "key" {
+		t.Errorf("Key was incorrect, got: %s, want: %s.", n.GetKey(), "key")
 	}
 }
 
 func TestGetVal(t *testing.T) {
 	n := makeNode("key", "hi", nil, nil)
 
-	if n.getVal() != "hi" {
-		t.Errorf("Val was incorrect, got: %s, want: %s.", n.getVal(), "hi")
+	if n.GetVal() != "hi" {
+		t.Errorf("Val was incorrect, got: %s, want: %s.", n.GetVal(), "hi")
 	}
 }
 
 func TestSetVal(t *testing.T) {
 	n := makeNode("key", "hi", nil, nil)
 
-	err := n.setVal(1)
+	err := n.SetVal(1)
 
 	if err != nil {
 		t.Errorf(err.Error())
 	}
 
-	if n.getVal() != 1 {
-		t.Errorf("Val was incorrect, got: %d, want: %d.", n.getVal(), 1)
+	if n.GetVal() != 1 {
+		t.Errorf("Val was incorrect, got: %d, want: %d.", n.GetVal(), 1)
 	}
 }
 
 func TestSetValNil(t *testing.T) {
 	n := makeNode("key", "hi", nil, nil)
 
-	err := n.setVal(nil)
+	err := n.SetVal(nil)
 
 	if err == nil {
 		t.Errorf("Error should have occurred")
@@ -77,21 +77,21 @@ func TestSetValNil(t *testing.T) {
 func TestSetKey(t *testing.T) {
 	n := makeNode("key", "hi", nil, nil)
 
-	err := n.setKey("Newkey")
+	err := n.SetKey("Newkey")
 
 	if err != nil {
 		t.Errorf(err.Error())
 	}
 
-	if n.getKey() != "Newkey" {
-		t.Errorf("Key was incorrect, got: %s, want: %s.", n.getKey(), "Newkey")
+	if n.GetKey() != "Newkey" {
+		t.Errorf("Key was incorrect, got: %s, want: %s.", n.GetKey(), "Newkey")
 	}
 }
 
 func TestSetKeyNil(t *testing.T) {
 	n := makeNode("key", "hi", nil, nil)
 
-	err := n.setKey(nil)
+	err := n.SetKey(nil)
 
 	if err == nil {
 		t.Errorf("Error should have occurred")
